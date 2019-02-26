@@ -1,0 +1,66 @@
+<!-- -*- coding: utf-8 -*-
+@Author: b1uuue
+@Date:   2018-07-20 16:10:45
+@Last Modified by:   b1uuue
+@Last Modified time: 2019-02-22 14:58:11 -->
+
+<html>
+
+<head>
+	<link rel="stylesheet" href="./css/kPainter.css">
+</head>
+
+<body>
+	<!-- editor page -->
+	<div id="contentEditor" class="content-editor"></div>
+
+	<!-- add & delet images -->
+	<button onclick="painter.showFileChooseWindow()">Add</button>
+	<button onclick="painter.del()">Delete</button>
+	<!-- page control -->
+	<button onclick="painter.changePage('f')">|<</button>
+	<button onclick="painter.changePage('p')"><</button>
+	<span id="pageNum">0/0</span>
+	<button onclick="painter.changePage('n')">></button>
+	<button onclick="painter.changePage('l')">>|</button>
+	<!-- edit image -->
+	<br>
+	<button onclick="painter.enterEditAsync()">Edit</button>
+	<button onclick="painter.cancelEdit()">Exit Edit</button>
+	<button onclick="painter.saveEditAsync()">Save</button>
+	<button onclick="painter.undo()">Undo</button>
+	<button onclick="painter.redo()">Redo</button>
+	<button onclick="painter.rotateLeft()">Rotate Left</button>
+	<button onclick="painter.rotateRight()">Rotate Right</button>
+	<button onclick="painter.mirror()">Mirror</button>
+	<button onclick="painter.flip()">Flip</button>
+	<button onclick="painter.cropAsync()">Crop</button>
+	<!-- download image -->
+	<br>
+	<input id="ipt-downloadName" placeholder="filename to dwonload">
+	<button class="btn-download" onclick="painter.download($('#ipt-downloadName').val());">Download</button>
+	
+</body>
+
+</html>
+<script src="./js/jquery-3.2.1.min.js"></script>
+<script src="./js/mbc-2.1.3.min.js"></script>
+<script>
+	// new an MBC Object
+	var painter = new MBC();
+
+	// update the current index & total number of images  
+	painter.onNumChange = function(curIndex, length){
+    	$("#pageNum").html((curIndex+1)+"/"+length);
+	};
+
+	// get DOM
+	var painterDiv = painter.getHtmlElement();
+	painterDiv.style.width = '100%';
+	painterDiv.style.height = '100%';
+	painterDiv.style.backgroundColor = 'rgba(0,0,0,0.3)';
+
+	// fill into the Content Editor
+	$('#contentEditor').append(painterDiv);
+
+</script>
